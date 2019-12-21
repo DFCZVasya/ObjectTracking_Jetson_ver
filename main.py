@@ -3,28 +3,36 @@ from get_params import GetArguments
 
 def get_params():
     _defaults = {
-        "model_path": 'model_data/yolo-tiny.h5',
-        "anchors_path": 'model_data/tiny_yolo_anchors.txt',
-        "classes_path": 'model_data/coco_classes.txt',
+        "-mp": 'model_data/yolo-tiny.h5',
+        "-ap": 'model_data/tiny_yolo_anchors.txt',
+        "-cp": 'model_data/coco_classes.txt',
         "score" : 0.3,
         "iou" : 0.45,
         "model_image_size" : (416, 416),
-        "gpu_num" : 1,
+        "-gpnum" : 1,
+        "-i":"input/outfile.webm",
+        "-o":"output/outfile.avi",
     }
 
     arg = sys.argv
 
     arg = GetArguments(arg)
     for a in _defaults:
-        arg.add_defaults(a, _defaults[a])
+        arg.add_default(a, _defaults[a])
 
     arg.update_values()
+    i, o = arg.get_io_params()
+    return arg.get_dnn_params(), i , o 
 
 
-def main(model, anchors, input, output):
-    pass
+def main(dnn_params, input, output):
+    print("start main")
+    #print(dnn_params, input, output)
+    
+    
 
 
 
 if __name__ == "__main__":
-    main()
+    dnn_params, input, output = get_params()
+    main(dnn_params, input, output)
