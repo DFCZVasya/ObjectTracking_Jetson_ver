@@ -1,5 +1,6 @@
 import sys
 from get_params import GetArguments
+from yolodetect import yolodetect
 
 def get_params():
     _defaults = {
@@ -28,7 +29,10 @@ def get_params():
 def main(dnn_params, input, output):
     print("start main")
     #print(dnn_params, input, output)
-    
+    if "yolo" in dnn_params["-mp"]:
+        yolodetect(dnn_params, input, output)
+    else:
+        pass
     
 
 
