@@ -17,19 +17,15 @@ def yolodetect(dnn_params, input, output):
     if input == 'cam':
         vs = VideoStream(src=1).start() #or 1
         time.sleep(2.0)
-        fps = FPS().start()
-        w = int(vs.get_width())
-        h = int(vs.get_height())
+        fps = 0
         yolo = YOLO(dnn_params["-mp"], dnn_params["-ap"], dnn_params["-cp"])
-        fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-        out= cv2.VideoWriter(output, fourcc, 30, (w , h), True)
-        currentFrame = 0
 
         while True:
+            start_t = time.time()
             # grab the frame from the threaded video stream and resize it
-            # to have a maximum width of 400 pixels
+            # to have a maximum width of 314 pixels
             frame = vs.read()
-            frame = imutils.resize(frame, width=400)
+            frame = imutils.resize(frame, width=314)
             image = Image.fromarray(frame)
             # loop over the detections
             outBoxes = yolo.detect_image(image) #Here you can make whatever you want (return[top left x, top left y, bottom right x, bottom right y, class name])
@@ -45,31 +41,25 @@ def yolodetect(dnn_params, input, output):
                     cv2.putText(frame, text, (box[0], box[1] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,0), 2)
 
             # show the output frame
+            #frame = imutils.resize(frame, width=500)
             cv2.imshow("Frame", frame)
-            frame = imutils.resize(frame, width=w)
-            out.write(frame)
-            currentFrame += 1
-
+            
+            
             key = cv2.waitKey(1) & 0xFF
             
-            fps.stop()
+            fps = 1/(time.time() - start_t)
             #print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
-            print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
+            print("[INFO] approx. FPS: {:.2f}".format(fps))
 
 
             # if the `q` key was pressed, break from the loop
             if key == ord("q"):
                 break
 
-            # update the FPS counter
-            fps.update()
+        
+            
 
-        # stop the timer and display FPS information
-        fps.stop()
-        out.release()
-        print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
-        print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-
+        
         # do a bit of cleanup
         cv2.destroyAllWindows()
         vs.stop()
