@@ -1,0 +1,18 @@
+#!/bin/bash
+sudo apt update
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+sudo apt-get install nano
+sudo apt-get install python3-pip
+sudo -H pip3 install cython
+sudo apt-get install libhdf5-serial-dev hdf5-tools libhdf5-dev zlib1g-dev zip libjpeg8-dev
+sudo pip3 install -U pip testresources setuptools
+sudo pip3 install -U numpy==1.16.1 future==0.17.1 mock==3.0.5 h5py==2.9.0 keras_preprocessing==1.0.5 keras_applications==1.0.8 gast==0.2.2 enum34 futures protobuf
+sudo pip3 install --extra-index-url https://developer.download.nvidia.com/compute/redist/.. tensorflow-gpu==1.13.1+nv19.3
+sudo -H apt-get install python3-scipy
+sudo pip3 install keras
+sudo apt-get install python3-matplotlib
+sudo pip3 install pillow
+sudo pip3 install imutils
+sudo -H pip install jetson-stats
