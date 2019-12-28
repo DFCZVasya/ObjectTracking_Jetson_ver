@@ -17,9 +17,10 @@ $ ./MakeFileTX1
 $ chmod +x ./MakeFilenano
 $ ./MakeFilenano
 ```
+If errors occur during the execution of the file try to enter all the lines from MakeFile in turn:
 
 Weights for tiny yolo is already in project. 
-But if you want to test big yolo, youcan download weights from: https://drive.google.com/open?id=1P2WuPcOaWAajFZFw09TnZWdwb4DecIzT in model_data dir.
+But if you want to test big yolo, you can download weights from: https://drive.google.com/open?id=1P2WuPcOaWAajFZFw09TnZWdwb4DecIzT in model_data dir.
 _____________________________
 For run the stream detection with tiny yolo model you need to write next command in terminal:
 ```
