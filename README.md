@@ -34,3 +34,6 @@ Other aguments:
 -ap [path to anchors (default - 'model_data/tiny_yolo_anchors.txt')]
 -cp [path to classes (default - "-cp": 'model_data/coco_classes.txt')]
 ```
+
+Dont forget to do pull request until working, I am constantly trying to improve the program and add new models, as well as fix bugs.
+You can write me on my mail if you found bugs : loopatkin.2002@gmail.com
