@@ -23,7 +23,7 @@ def get_params():
 
     arg.update_values()
     i, o = arg.get_io_params()
-    return arg.get_dnn_params(), i , o 
+    return arg.get_other_params(), i , o 
 
 
 def main(dnn_params, input, output):
@@ -33,7 +33,7 @@ def main(dnn_params, input, output):
         yolodetect(dnn_params, input, output)
     else:
         pass
-    
+
 
 
 

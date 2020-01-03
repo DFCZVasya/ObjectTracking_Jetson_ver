@@ -6,12 +6,12 @@ class GetArguments():
     def add_default(self,arg_name, value):
         self.arg_dict.update({arg_name:value})
 
-    def get_dnn_params(self):
-        dnn_params = self.arg_dict
-        dnn_params.pop("-i")
-        dnn_params.pop("-o")
-        return dnn_params
-    
+    def get_other_params(self):
+        other_params = self.arg_dict
+        other_params.pop("-i")
+        other_params.pop("-o")
+        return other_params
+
     def get_io_params(self):
         return self.arg_dict["-i"], self.arg_dict["-o"]
 
@@ -24,4 +24,3 @@ class GetArguments():
                 if self.args[i*2] not in self.arg_dict:
                     raise Exception("Wrong argument " + self.args[i*2] + " - no such argument!")
                 self.arg_dict[self.args[i*2]] = self.args[i*2+1]
-
