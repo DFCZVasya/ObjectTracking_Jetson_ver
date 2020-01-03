@@ -43,10 +43,10 @@ def yolodetect(dnn_params, input, output):
             # show the output frame
             #frame = imutils.resize(frame, width=500)
             cv2.imshow("Frame", frame)
-            
-            
+
+
             key = cv2.waitKey(1) & 0xFF
-            
+
             fps = 1/(time.time() - start_t)
             #print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
             print("[INFO] approx. FPS: {:.2f}".format(fps))
@@ -56,10 +56,10 @@ def yolodetect(dnn_params, input, output):
             if key == ord("q"):
                 break
 
-        
-            
 
-        
+
+
+
         # do a bit of cleanup
         cv2.destroyAllWindows()
         vs.stop()
@@ -79,9 +79,9 @@ def yolodetect(dnn_params, input, output):
 	        print("[INFO] could not determine # of frames in video")
 	        print("[INFO] no approx. completion time can be provided")
 	        total = -1
-        
-        yolo = YOLO(dnn_params["-mp"], dnn_params["-ap"], dnn_params["-cp"])
 
+        yolo = YOLO(dnn_params["-mp"], dnn_params["-ap"], dnn_params["-cp"])
+        frameIndex = 0
         while True:
             counter = 0
             start_time = time.time()
