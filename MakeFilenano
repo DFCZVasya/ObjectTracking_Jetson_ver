@@ -1,43 +1,49 @@
 #!/bin/bash
-sudo apt update
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get dist-upgrade
-sudo apt-get install nano
-sudo apt-get install python3-pip
+sudo apt update -y
+sudo apt-get update -y
+sudo apt-get upgrade -y
+sudo apt-get dist-upgrade -y
+sudo apt-get install nano -y
+sudo apt-get install python3-pip -y
 sudo -H pip3 install cython
-sudo apt-get install libhdf5-serial-dev hdf5-tools libhdf5-dev zlib1g-dev zip libjpeg8-dev
+sudo apt-get install libhdf5-serial-dev hdf5-tools libhdf5-dev zlib1g-dev zip libjpeg8-dev -y
 sudo pip3 install -U pip testresources setuptools
-sudo pip3 install -U numpy==1.16.1 future==0.17.1 mock==3.0.5 h5py==2.9.0 keras_preprocessing==1.0.5 keras_applications==1.0.8 gast==0.2.2 enum34 futures protobuf
+sudo pip3 install -U numpy==1.16.1 future==0.17.1 mock==3.0.5 h5py==2.9.0 keras_preprocessing==1.0.5 keras_applications==1.0.8 gast=$
 sudo pip3 install --extra-index-url https://developer.download.nvidia.com/compute/redist/.. tensorflow-gpu==1.13.1+nv19.3
-sudo -H apt-get install python3-scipy
+sudo -H apt-get install python3-scipy -y
 sudo pip3 install keras
-sudo apt-get install python3-matplotlib
+sudo apt-get install python3-matplotlib -y
 sudo pip3 install pillow
 sudo pip3 install imutils
 sudo -H pip install jetson-stats
 #Updating the packages
-sudo apt install -y build-essential cmake git libgtk2.0-dev pkg-config  libswscale-dev libtbb2 libtbb-dev
+sudo apt install -y build-essential cmake git libgtk2.0-dev pkg-config  libswscale-dev libtbb2 libtbb-dev -y
 #Install video & image formats
-sudo apt install -y  libjpeg-dev libpng-dev libtiff-dev libjasper-dev 
+sudo apt install -y  libjpeg-dev libpng-dev libtiff-dev libjasper-dev
 sudo apt install -y libavcodec-dev libavformat-dev
 sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 sudo apt install -y libv4l-dev v4l-utils qv4l2 v4l2ucp libdc1394-22-dev
-#Download OpenCV & Contribs Modules
+#Download OpenCV & Contribs Modules (2 ways)
+#
+#1
 sudo apt-get install wget
 cd
-mkdir opencv cd opencv
-git clone https://github.com/opencv/opencv.git
-git clone https://github.com/opencv/opencv_contrib.git
-#wget https://github.com/opencv/opencv/archive/4.1.0.zip -o opencv-4.1.0.zip
-#wget https://github.com/opencv/opencv_contrib/archive/4.1.0.zip -o opencv_contrib-4.1.0.zip
-#Unzipping packages
-unzip opencv-4.1.0.zip 
-unzip opencv_contrib-4.1.0.zip 
+mkdir opencv
+cd opencv
+wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.0.zip
+wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.1.0.zip
+unzip opencv.zip
+unzip opencv_contrib.zip
 cd opencv-4.1.0/
+#
+#2
+#git clone https://github.com/opencv/opencv.git
+#git clone https://github.com/opencv/opencv_contrib.git
+#cd opencv
+#
 #Create directory
-mkdir release
-cd release/
+mkdir build
+cd build/
 #Build Opencv using Cmake
 cmake     -D WITH_CUDA=ON \
         -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-4.1.0/modules \
