@@ -31,12 +31,10 @@ def yolodetect(dnn_params, input, output):
             #take frame and return square(for wide angle cameras) in the desired resolution default is (314, 314)
             frame = take_and_resize(frame) #here you can also choose your own ouput resolution like take_and_resize(frame, your resolution) 
             
-            #image = Image.fromarray(frame)
             # loop over the detections
             outBoxes = yolo.detect_image(frame) #Here you can make whatever you want (return[top left x, top left y, bottom right x, bottom right y, class name])
             
-            frame = np.asarray(frame) #[:,:,::-1].copy()
-            #frame = cv2.cvtColor(np.asarray(frame), cv2.COLOR_BGR2RGB)
+            frame = np.asarray(frame)
             if len(outBoxes) > 0:
                 for box in outBoxes:
                     # extract the bounding box coordinates
