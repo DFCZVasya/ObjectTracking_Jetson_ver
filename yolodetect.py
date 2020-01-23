@@ -2,12 +2,13 @@ import sys
 from PIL import Image
 from yolo import YOLO
 from imutils.video import VideoStream
-from imutils.video import FPS
 import time
 import cv2
 import os
 import glob
 import imutils
+from resizevideo import take_and_resize
+import numpy as np
 
 def yolodetect(dnn_params, input, output):
     files = glob.glob('output/*.png')
@@ -15,7 +16,7 @@ def yolodetect(dnn_params, input, output):
 	    os.remove(f)
 
     if input == 'cam':
-        vs = VideoStream(src=1).start() #or 1
+        vs = VideoStream(src=0).start() #or 1
         time.sleep(2.0)
         fps = 0
         yolo = YOLO(dnn_params["-mp"], dnn_params["-ap"], dnn_params["-cp"])
@@ -25,11 +26,17 @@ def yolodetect(dnn_params, input, output):
             # grab the frame from the threaded video stream and resize it
             # to have a maximum width of 314 pixels
             frame = vs.read()
-            frame = imutils.resize(frame, width=314)
-            image = Image.fromarray(frame)
-            # loop over the detections
-            outBoxes = yolo.detect_image(image) #Here you can make whatever you want (return[top left x, top left y, bottom right x, bottom right y, class name])
+            #frame = imutils.resize(frame, width=314)
 
+            #take frame and return square(for wide angle cameras) in the desired resolution default is (314, 314)
+            frame = take_and_resize(frame) #here you can also choose your own ouput resolution like take_and_resize(frame, your resolution) 
+            
+            #image = Image.fromarray(frame)
+            # loop over the detections
+            outBoxes = yolo.detect_image(frame) #Here you can make whatever you want (return[top left x, top left y, bottom right x, bottom right y, class name])
+            
+            frame = np.asarray(frame) #[:,:,::-1].copy()
+            #frame = cv2.cvtColor(np.asarray(frame), cv2.COLOR_BGR2RGB)
             if len(outBoxes) > 0:
                 for box in outBoxes:
                     # extract the bounding box coordinates
